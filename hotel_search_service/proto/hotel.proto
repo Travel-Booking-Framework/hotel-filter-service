@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service HotelService {
+    rpc GetHotel (HotelRequest) returns (HotelResponse);
+}
+
+message HotelRequest {
+    int32 id = 1;
+}
+
+message HotelResponse {
+    int32 id = 1;
+    string name = 2;
+    string location = 3;
+    int32 price = 4;
+}
