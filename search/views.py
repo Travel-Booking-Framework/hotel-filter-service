@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import HotelSearchSerializer
+from .serializers import HotelSerializer
 from .repository import HotelRepository
 from .commands import SearchHotelsCommand
 import pybreaker
@@ -10,7 +10,7 @@ circuit_breaker = pybreaker.CircuitBreaker(fail_max=5, reset_timeout=60)
 
 class HotelSearchView(APIView):
     def get(self, request):
-        serializer = HotelSearchSerializer(data=request.query_params)
+        serializer = HotelSerializer(data=request.query_params)
 
         if serializer.is_valid():
             query = serializer.validated_data["query"]

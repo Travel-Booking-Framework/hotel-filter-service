@@ -1,7 +1,13 @@
 from rest_framework import serializers
-from .models import Hotel
 
-class HotelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Hotel
-        fields = ['id', 'name', 'location', 'price']
+class HotelSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    location = serializers.CharField()
+    price = serializers.FloatField()
+
+    def validate_price(self, value):
+        """Ensure the price is not negative."""
+        if value < 0:
+            raise serializers.ValidationError("Price must be a positive number.")
+        return value
